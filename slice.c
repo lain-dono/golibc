@@ -1,7 +1,7 @@
 #include "slice.h"
 #include <stdint.h>
 
-struct slice slice_sub(struct slice buf, size_t a, size_t b) {
+slice_t slice_sub(slice_t buf, size_t a, size_t b) {
 	// XXX maybe asserts?
 	buf.array += a;
 	buf.cap = (buf.cap < a)? 0: buf.cap - a;
@@ -10,7 +10,7 @@ struct slice slice_sub(struct slice buf, size_t a, size_t b) {
 	return buf;
 }
 
-size_t slice_copy(struct slice dst, struct slice src) {
+size_t slice_copy(slice_t dst, slice_t src) {
 	const size_t n = (dst.len < src.len)? dst.len: src.len;
 	size_t counter = n;
 

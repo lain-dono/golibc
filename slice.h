@@ -3,13 +3,13 @@
 
 #include <stddef.h>
 
-struct slice {
+typedef struct slice {
 	void *array;
 	size_t len;
 	size_t cap;
-};
+} slice_t;
 
-struct slice slice_sub(struct slice buf, size_t a, size_t b);
-size_t slice_copy(struct slice dst, struct slice src);
+slice_t slice_sub(slice_t buf, size_t a, size_t b);
+size_t slice_copy(slice_t dst, slice_t src);
 
 #endif
