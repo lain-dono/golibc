@@ -8,7 +8,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define RUNE_C(x) INT32_C(x)
+//#define RUNE_C(x) INT32_C(x)
+#define RUNE_C(x) L ## x
 typedef int32_t rune_t;
 
 // The conditions RuneError==unicode.ReplacementChar and

@@ -224,7 +224,7 @@ next:
 }
 
 size_t utf8_rune_count(const uint8_t *p, size_t np) {
-	size_t n;
+	size_t n = 0;
 	for (size_t i = 0; i < np;) {
 		n++;
 		uint8_t c = p[i];
