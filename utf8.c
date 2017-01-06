@@ -39,7 +39,7 @@
 #define s7  0x44 // accept 4, size 4
 
 // first is information about the first byte in a UTF-8 sequence.
-const static uint8_t first[256] = {
+static const uint8_t first[256] = {
 	//   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
 	as, as, as, as, as, as, as, as, as, as, as, as, as, as, as, as, // 0x00-0x0F
 	as, as, as, as, as, as, as, as, as, as, as, as, as, as, as, as, // 0x10-0x1F
@@ -66,7 +66,7 @@ struct acceptRange {
 	uint8_t hi; // highest value for second byte.
 };
 
-const static struct acceptRange acceptRanges[] = {
+static const struct acceptRange acceptRanges[] = {
 	{locb, hicb}, // 0
 	{0xA0, hicb}, // 1
 	{locb, 0x9F}, // 2
@@ -157,12 +157,12 @@ rune_t utf8_decode_rune(const uint8_t *p, size_t n, int *size) {
 	return (rune_t)(p0&mask4)<<18 | (rune_t)(b1&maskx)<<12 | (rune_t)(b2&maskx)<<6 | (rune_t)(b3&maskx);
 }
 
-rune_t utf8_decode_last_rune(const uint8_t *p, size_t end, int *size) {
+rune_t utf8_decode_last_rune(const uint8_t *p, ptrdiff_t end, int *size) {
 	if (end == 0) {
 		*size = 0;
 		return RuneError;
 	}
-	size_t start = end - 1;
+	ptrdiff_t start = end - 1;
 	rune_t r = (rune_t)(p[start]);
 	if (r < RuneSelf) {
 		r = 1;
@@ -171,7 +171,7 @@ rune_t utf8_decode_last_rune(const uint8_t *p, size_t end, int *size) {
 	// guard against O(n^2) behavior when traversing
 	// backwards through strings with long sequences of
 	// invalid UTF-8.
-	size_t lim = end - UTFMax;
+	ptrdiff_t lim = end - UTFMax;
 	if (lim < 0) {
 		lim = 0;
 	}

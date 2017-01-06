@@ -57,7 +57,7 @@ bool utf8_rune_start(uint8_t b);
 // out of range, or is not the shortest possible UTF-8 encoding for the
 // value.
 // No other validation is performed.
-rune_t utf8_decode_last_rune(const uint8_t *p, size_t end, int *size);
+rune_t utf8_decode_last_rune(const uint8_t *p, ptrdiff_t end, int *size);
 
 // utf8_rune_len returns the number of bytes required to encode the rune.
 // It returns -1 if the rune is not a valid value to encode in UTF-8.
